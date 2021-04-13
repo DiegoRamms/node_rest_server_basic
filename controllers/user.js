@@ -13,10 +13,10 @@ const usuariosGet = async(req = request,res = response) =>{
     const {limit = 5, since = 0} = req.query
 
     const [total, users] = await Promise.all([
+        Usuario.countDocuments({estado: true}),
         Usuario.find({estado : true})
         .skip(Number(since))
-        .limit(Number(limit)),
-        Usuario.countDocuments({estado: true})
+        .limit(Number(limit))
     ])
 
     res.json({
