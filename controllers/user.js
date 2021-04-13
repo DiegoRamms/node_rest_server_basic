@@ -12,16 +12,11 @@ const usuariosGet = async(req = request,res = response) =>{
     //const {q,nombre = "no name",apikey} = req.query
     const {limit = 5, since = 0} = req.query
 
-    const usuarios =  Usuario.find({estado : true})
-        .skip(Number(since))
-        .limit(Number(limit))
-        
-
-    const totalUsers = Usuario.countDocuments({estado: true})
-
     const [total, users] = await Promise.all([
-        totalUsers,
-        usuarios
+        Usuario.find({estado : true})
+        .skip(Number(since))
+        .limit(Number(limit)),
+        Usuario.countDocuments({estado: true})
     ])
 
     res.json({
