@@ -52,7 +52,10 @@ const usuariosPost  = async(req,res = response) => {
 const usuariosDelete = async(req = request, res = response) => {
 
     const {id} = req.params
+    
     const user = await Usuario.findByIdAndUpdate(id, {estado: false})
+  
+
     res.json({
         ok: true,
         user
