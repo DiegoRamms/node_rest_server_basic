@@ -1,4 +1,7 @@
 const mongoose = require("mongoose")
+const categoria = require("../models/categoria")
+const Categoria = require("../models/categoria")
+const Producto = require("../models/producto")
 const Role = require("../models/role")
 const Usuario = require("../models/usuario")
 
@@ -34,8 +37,34 @@ const existeUsuarioPorId = async(id) => {
     
 }
 
+const existeCategoriaPorId = async(id) =>{
+    if(mongoose.Types.ObjectId.isValid(id)){
+        const existeCategoria = await Categoria.findById(id)
+        if(!existeCategoria){
+            throw new Error(`No existe la categoria con id: ${id}`)
+        }
+    }else {
+        throw new Error(`El id ${id}no es valido`)
+    }
+
+}
+
+
+const existeProductoPorId = async(id) =>{
+    if(mongoose.Types.ObjectId.isValid(id)){
+        const existeProducto = await Producto.findById(id)
+        if(!existeProducto){
+            throw new Error(`No existe el producto con id: ${id}`)
+        }
+    }else {
+        throw new Error(`El id ${id}no es valido`)
+    }
+}
+ 
 module.exports = {
     esRoleValido,
     emailExist,
-    existeUsuarioPorId
+    existeUsuarioPorId,
+    existeCategoriaPorId,
+    existeProductoPorId
 }
