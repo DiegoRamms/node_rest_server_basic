@@ -15,14 +15,16 @@ const login = async(req, res = response) =>{
         const usuario = await Usuario.findOne({correo})
 
         if(!usuario){
-            return res.status(400).json({
+            //status(400)
+            return res.json({
                 msg: 'Usuario / Password no son correctos - correo'
             })
         }
 
         // Si el usuario esta activo
         if(usuario.estado === false){
-            return res.status(400).json({
+            //status(400)
+            return res.json({
                 msg: 'Usuario inactivo'
             })
         }
@@ -30,7 +32,8 @@ const login = async(req, res = response) =>{
         // Validar passsword
         const validPassword = bcryptjs.compareSync(password,usuario.password)
         if (!validPassword){
-            return res.status(400).json({
+            //status(400)
+            return res.json({
                 msg: 'Usuario / Password no son correctos - password'
             })
         }
@@ -46,8 +49,8 @@ const login = async(req, res = response) =>{
         })
 
     }catch(error){
-        console.log(error)
-        res.status(500).json({
+        //status(500)
+        res.json({
             msg: 'Hable con el administrador'
         })
     }
@@ -85,7 +88,8 @@ const googleSignin = async(req = request, res = response) => {
 
         // Si el usuario en DB
         if(!usuario.estado){
-            return res.status(401).json({
+            /*.status(401)*/
+            return res.json({
                 msg: 'Hable con el administrador, usuario bloqueado'
             })
         }
@@ -98,7 +102,8 @@ const googleSignin = async(req = request, res = response) => {
             token
         })
     }catch(error){
-        res.status(400).json({
+        //status(400)
+        res.json({
             msg: 'Token no reonocido'
         })
     }
