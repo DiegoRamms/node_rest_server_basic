@@ -17,6 +17,8 @@ const login = async(req, res = response) =>{
         if(!usuario){
             //status(400)
             return res.json({
+                status: "error",
+                code: 2,
                 msg: 'Usuario / Password no son correctos - correo'
             })
         }
@@ -25,6 +27,8 @@ const login = async(req, res = response) =>{
         if(usuario.estado === false){
             //status(400)
             return res.json({
+                status: "error",
+                code: 2,
                 msg: 'Usuario inactivo'
             })
         }
@@ -34,6 +38,8 @@ const login = async(req, res = response) =>{
         if (!validPassword){
             //status(400)
             return res.json({
+                status: "error",
+                code: 2,
                 msg: 'Usuario / Password no son correctos - password'
             })
         }
@@ -43,6 +49,8 @@ const login = async(req, res = response) =>{
         const token = await generarJWT(usuario.id)
 
         res.json({
+            status: "ok",
+            code: 2,
             msg: 'Login Correcto',
             usuario,
             token
@@ -51,6 +59,8 @@ const login = async(req, res = response) =>{
     }catch(error){
         //status(500)
         res.json({
+            status: "error",
+            code: 500,
             msg: 'Hable con el administrador'
         })
     }

@@ -5,7 +5,12 @@ const validarCampos = (req, res, next) => {
     const errors  = validationResult(req)
     if(!errors.isEmpty()){
         //status(400)
-        return res.json(errors)
+        return res.json(
+            {
+                status: "error",
+                code: 2,
+                errors
+            })
     }
 
     next()
